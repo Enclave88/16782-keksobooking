@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Александр Штанг](https://up.htmlacademy.ru/javascript/8/user/16782).
-* Наставник: `Неизвестно`.
+* Наставник: [Борис Ванюшин] (https://htmlacademy.ru/profile/id62080).
 
 ---
 
