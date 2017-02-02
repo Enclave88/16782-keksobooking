@@ -65,11 +65,9 @@ var capacity = document.querySelector('#capacity');
 capacity.selectedIndex = 1;
 
 roomNumber.addEventListener('click', function () {
-  var roomIndex = roomNumber.selectedIndex;
-  (roomIndex === 0) ? capacity.selectedIndex = 1 : capacity.selectedIndex = 0;
+  roomNumber.selectedIndex = 0 ? capacity.selectedIndex = 1 : capacity.selectedIndex = 0;
 });
 
 capacity.addEventListener('click', function () {
-  var capacityIndex = capacity.selectedIndex;
-  (capacityIndex === 0) ? roomNumber.selectedIndex = 1 : roomNumber.selectedIndex = 0;
+  capacity.selectedIndex = 0 ? roomNumber.selectedIndex = 1 : roomNumber.selectedIndex = 0;
 });
