@@ -4,7 +4,7 @@ var pinList = document.getElementsByClassName('pin');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
 
-//1.1
+// 1.1
 for (var i = 0, pins = pinList.length; i < pins; i++) {
   pinList[i].addEventListener('click', function () {
     removeActiveClass();
@@ -13,23 +13,23 @@ for (var i = 0, pins = pinList.length; i < pins; i++) {
   });
 }
 
-//2.3.собираем псевдомассив всех пинов и удаляем у них класс active
+// 2.3.собираем псевдомассив всех пинов и удаляем у них класс active
 function removeActiveClass () {
-  for (var i = 0, pins = pinList.length; i < pins; i++) {
-    pinList[i].classList.remove('pin--active')
+  for (i = 0, pins = pinList.length; i < pins; i++) {
+    pinList[i].classList.remove('pin--active');
   }
 }
 
-//2.2.закрываем диалог и вызываем функцию удаления класса active
+// 2.2.закрываем диалог и вызываем функцию удаления класса active
 function hideDialog () {
   dialog.style.visibility = 'hidden';
   removeActiveClass();
 }
 
-//2.1.событие закрытия диалога
+// 2.1.событие закрытия диалога
 closeDialog.addEventListener('click', hideDialog);
 
-//синхронизация времени заезда и времени выезда
+// синхронизация времени заезда и времени выезда
 var arrival = document.querySelector('#time');
 var departure = document.querySelector('#timeout');
 
@@ -41,13 +41,13 @@ departure.addEventListener('click', function () {
   arrival.selectedIndex = departure.selectedIndex;
 });
 
-//минимальная стоимость
+// минимальная стоимость
 var livingRoomType = document.querySelector('#type');
 var price = document.querySelector('#price');
 
 livingRoomType.addEventListener('click', function () {
   var type = livingRoomType.selectedIndex;
-  switch(type) {
+  switch (type) {
     case 1:
       price.min = 0;
       break;
@@ -66,10 +66,10 @@ capacity.selectedIndex = 1;
 
 roomNumber.addEventListener('click', function () {
   var roomIndex = roomNumber.selectedIndex;
-  roomIndex == 0 ? capacity.selectedIndex = 1 : capacity.selectedIndex = 0;
+  roomIndex === 0 ? capacity.selectedIndex = 1 : capacity.selectedIndex = 0;
 });
 
 capacity.addEventListener('click', function () {
   var capacityIndex = capacity.selectedIndex;
-  capacityIndex == 0 ? roomNumber.selectedIndex = 1 : roomNumber.selectedIndex = 0;
+  capacityIndex === 0 ? roomNumber.selectedIndex = 1 : roomNumber.selectedIndex = 0;
 });
