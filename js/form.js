@@ -3,9 +3,9 @@
 var pinList = document.getElementsByClassName('pin');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
-var FLAT_PRICE = 1000;
-var HOVEL_PRICE = 0;
-var PALACE_PRICE = 10000;
+var FLAT_MIN_PRICE = 1000;
+var HOVEL_MIN_PRICE = 0;
+var PALACE_MIN_PRICE = 10000;
 
 setHtmlValues();
 
@@ -52,7 +52,7 @@ var price = document.querySelector('#price');
 
 livingRoomType.addEventListener('click', function () {
   var type = livingRoomType.selectedIndex;
-  var prices = [1000, 0, 10000];
+  var prices = [FLAT_MIN_PRICE, HOVEL_MIN_PRICE, PALACE_MIN_PRICE];
   price.min = prices[type];
 });
 
