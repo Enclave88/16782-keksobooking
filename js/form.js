@@ -78,9 +78,9 @@ capacity.addEventListener('click', function () {
   }
 });
 
+var title = document.querySelector('#title');
+
 function setHtmlValues() {
-  var title = document.querySelector('#title');
-  var price = document.querySelector('#price');
   title.required = 'required';
   title.pattern = '.{30,100}';
   price.required = 'required';
@@ -89,9 +89,3 @@ function setHtmlValues() {
   price.max = '1000000';
   document.querySelector('#address').required = 'required';
 }
-
-var title = document.querySelector('#title');
-title.required = 'required';
-title.pattern = '.{30,100}';
-document.querySelector('#price').required = 'required';
-document.querySelector('#address').required = 'required';
