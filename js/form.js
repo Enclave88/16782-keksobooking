@@ -3,6 +3,11 @@
 var pinList = document.getElementsByClassName('pin');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
+var FLAT_PRICE = 1000;
+var HOVEL_PRICE = 0;
+var PALACE_PRICE = 10000;
+
+setHtmlValues();
 
 // 1.1
 for (var i = 0, pins = pinList.length; i < pins; i++) {
@@ -47,17 +52,8 @@ var price = document.querySelector('#price');
 
 livingRoomType.addEventListener('click', function () {
   var type = livingRoomType.selectedIndex;
-  switch (type) {
-    case 1:
-      price.min = 0;
-      break;
-    case 2:
-      price.min = 10000;
-      break;
-    default:
-      price.min = 1000;
-      break;
-  }
+  var prices = [1000, 0, 10000];
+  price.min = prices[type];
 });
 
 var roomNumber = document.querySelector('#room_number');
@@ -81,3 +77,21 @@ capacity.addEventListener('click', function () {
     roomNumber.selectedIndex = 0;
   }
 });
+
+function setHtmlValues() {
+  var title = document.querySelector('#title');
+  var price = document.querySelector('#price');
+  title.required = 'required';
+  title.pattern = '.{30,100}';
+  price.required = 'required';
+  price.type = 'number';
+  price.min = '1000';
+  price.max = '1000000';
+  document.querySelector('#address').required = 'required';
+}
+
+var title = document.querySelector('#title');
+title.required = 'required';
+title.pattern = '.{30,100}';
+document.querySelector('#price').required = 'required';
+document.querySelector('#address').required = 'required';
