@@ -505,6 +505,14 @@ select option:hover {
     height: 510px;
 }
 
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
 .dialog__title {
     position: relative;
 }

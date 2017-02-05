@@ -3,31 +3,33 @@
 var pinList = document.getElementsByClassName('pin');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
+var PIN_ACTIVE_CLASS = 'pin--active';
+var VISIBLE_CLASS = 'visible';
+var INVISIBLE_CLASS = 'invisible';
 var FLAT_MIN_PRICE = 1000;
 var HOVEL_MIN_PRICE = 0;
 var PALACE_MIN_PRICE = 10000;
-
-setHtmlValues();
 
 // 1.1
 for (var i = 0, pins = pinList.length; i < pins; i++) {
   pinList[i].addEventListener('click', function (e) {
     removeActiveClass();
-    e.currentTarget.classList.add('pin--active');
-    dialog.style.visibility = 'visible';
+    e.currentTarget.classList.add(PIN_ACTIVE_CLASS);
+    dialog.classList.remove(INVISIBLE_CLASS);
+    dialog.classList.add(VISIBLE_CLASS);
   });
 }
 
 // 2.3.собираем псевдомассив всех пинов и удаляем у них класс active
 function removeActiveClass() {
   for (i = 0, pins = pinList.length; i < pins; i++) {
-    pinList[i].classList.remove('pin--active');
+    pinList[i].classList.remove(PIN_ACTIVE_CLASS);
   }
 }
 
 // 2.2.закрываем диалог и вызываем функцию удаления класса active
 function hideDialog() {
-  dialog.style.visibility = 'hidden';
+  dialog.classList.add(INVISIBLE_CLASS);
   removeActiveClass();
 }
 
@@ -89,3 +91,5 @@ function setHtmlValues() {
   price.max = '1000000';
   document.querySelector('#address').required = 'required';
 }
+
+setHtmlValues();
