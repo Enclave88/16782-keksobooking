@@ -2,7 +2,6 @@
 
 // selectors
 var pinList = document.getElementsByClassName('pin');
-var map = document.getElementsByClassName('tokyo__pin-map');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
 var livingRoomType = document.querySelector('#type');
@@ -20,7 +19,6 @@ var INVISIBLE_CLASS = 'invisible';
 var FLAT_MIN_PRICE = 1000;
 var HOVEL_MIN_PRICE = 0;
 var PALACE_MIN_PRICE = 10000;
-var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 // синхронизация времени заезда и времени выезда
 var arrival = document.querySelector('#time');
@@ -29,10 +27,6 @@ var departure = document.querySelector('#timeout');
 // ARIA
 var setCloseDialogAriaPressed = function () {
   return closeDialog.setAttribute('aria-pressed', 'true');
-};
-
-var getCloseDialogAriaPressed = function () {
-  return closeDialog.setAttribute('aria-pressed', 'false');
 };
 
 // 2.3.собираем псевдомассив всех пинов и удаляем у них класс active
@@ -69,11 +63,11 @@ var clickHandler = function (evt) {
   dialog.classList.remove(INVISIBLE_CLASS);
   dialog.classList.add(VISIBLE_CLASS);
 
-  document.addEventListener('keydown', function (evt) {
-    if(evt.keyCode && evt.keyCode === ESCAPE_KEY_CODE) {
+  document.addEventListener('keydown', function (event) {
+    if (event.keyCode && event.keyCode === ESCAPE_KEY_CODE) {
       hideHandling();
     }
-  })
+  });
 
 };
 
