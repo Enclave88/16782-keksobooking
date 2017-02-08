@@ -19,6 +19,7 @@ var INVISIBLE_CLASS = 'invisible';
 var FLAT_MIN_PRICE = 1000;
 var HOVEL_MIN_PRICE = 0;
 var PALACE_MIN_PRICE = 10000;
+var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 // синхронизация времени заезда и времени выезда
 var arrival = document.querySelector('#time');
@@ -50,35 +51,49 @@ var hideHandling = function () {
   setCloseDialogAriaPressed();
 };
 
-var clickHandler = function (evt) {
-  evt.stopPropagation();
-  removeActiveClass();
-
+var visibleAfterAction = function () {
   if (clickedElement) {
     clickedElement.classList.remove(PIN_ACTIVE_CLASS);
   }
-  clickedElement = evt.currentTarget;
   clickedElement.classList.add(PIN_ACTIVE_CLASS);
 
   dialog.classList.remove(INVISIBLE_CLASS);
   dialog.classList.add(VISIBLE_CLASS);
+};
+
+var clickHandler = function (evt) {
+  evt.stopPropagation();
+  removeActiveClass();
+  clickedElement = evt.currentTarget;
+  visibleAfterAction();
 
   document.addEventListener('keydown', function (event) {
     if (event.keyCode && event.keyCode === ESCAPE_KEY_CODE) {
       hideHandling();
     }
   });
-
 };
 
 for (var i = 0, pins = pinList.length; i < pins; i++) {
+  pinList[i].addEventListener('keydown', function (event) {
+    if(event.keyCode && event.keyCode === ENTER_KEY_CODE) {
+      clickedElement = event.currentTarget;
+      visibleAfterAction();
+    }
+  });
+}
+
+
+for (i = 0, pins = pinList.length; i < pins; i++) {
   pinList[i].addEventListener('click', clickHandler);
 }
 
+// прибытие
 arrival.addEventListener('click', function () {
   departure.selectedIndex = arrival.selectedIndex;
 });
 
+// отбытие
 departure.addEventListener('click', function () {
   arrival.selectedIndex = departure.selectedIndex;
 });
