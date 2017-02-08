@@ -1,16 +1,30 @@
 'use strict';
 
+// selectors
 var pinList = document.getElementsByClassName('pin');
+var map = document.getElementsByClassName('tokyo__pin-map');
 var dialog = document.querySelector('.dialog');
 var closeDialog = document.querySelector('.dialog__close');
+var livingRoomType = document.querySelector('#type');
+var price = document.querySelector('#price');
+var roomNumber = document.querySelector('#room_number');
+var capacity = document.querySelector('#capacity');
+var title = document.querySelector('#title');
+// booleans
+var clickedElement = null;
+// strings
 var PIN_ACTIVE_CLASS = 'pin--active';
 var VISIBLE_CLASS = 'visible';
 var INVISIBLE_CLASS = 'invisible';
+// numbers
 var FLAT_MIN_PRICE = 1000;
 var HOVEL_MIN_PRICE = 0;
 var PALACE_MIN_PRICE = 10000;
 var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
+// синхронизация времени заезда и времени выезда
+var arrival = document.querySelector('#time');
+var departure = document.querySelector('#timeout');
 
 // ARIA
 var setCloseDialogAriaPressed = function () {
@@ -21,19 +35,9 @@ var getCloseDialogAriaPressed = function () {
   return closeDialog.setAttribute('aria-pressed', 'false');
 };
 
-// 1.1
-for (var i = 0, pins = pinList.length; i < pins; i++) {
-  pinList[i].addEventListener('click', function (e) {
-    removeActiveClass();
-    e.currentTarget.classList.add(PIN_ACTIVE_CLASS);
-    dialog.classList.remove(INVISIBLE_CLASS);
-    dialog.classList.add(VISIBLE_CLASS);
-  });
-}
-
 // 2.3.собираем псевдомассив всех пинов и удаляем у них класс active
 var removeActiveClass = function () {
-  for (i = 0, pins = pinList.length; i < pins; i++) {
+  for (var i = 0, pins = pinList.length; i < pins; i++) {
     pinList[i].classList.remove(PIN_ACTIVE_CLASS);
   }
 };
@@ -47,9 +51,35 @@ var hideDialog = function () {
 // 2.1.событие закрытия диалога
 closeDialog.addEventListener('click', hideDialog);
 
-// синхронизация времени заезда и времени выезда
-var arrival = document.querySelector('#time');
-var departure = document.querySelector('#timeout');
+var hideHandling = function () {
+  hideDialog();
+  setCloseDialogAriaPressed();
+};
+
+var clickHandler = function (evt) {
+  evt.stopPropagation();
+  removeActiveClass();
+
+  if (clickedElement) {
+    clickedElement.classList.remove(PIN_ACTIVE_CLASS);
+  }
+  clickedElement = evt.currentTarget;
+  clickedElement.classList.add(PIN_ACTIVE_CLASS);
+
+  dialog.classList.remove(INVISIBLE_CLASS);
+  dialog.classList.add(VISIBLE_CLASS);
+
+  document.addEventListener('keydown', function (evt) {
+    if(evt.keyCode && evt.keyCode === ESCAPE_KEY_CODE) {
+      hideHandling();
+    }
+  })
+
+};
+
+for (var i = 0, pins = pinList.length; i < pins; i++) {
+  pinList[i].addEventListener('click', clickHandler);
+}
 
 arrival.addEventListener('click', function () {
   departure.selectedIndex = arrival.selectedIndex;
@@ -60,17 +90,12 @@ departure.addEventListener('click', function () {
 });
 
 // минимальная стоимость
-var livingRoomType = document.querySelector('#type');
-var price = document.querySelector('#price');
-
 livingRoomType.addEventListener('click', function () {
   var type = livingRoomType.selectedIndex;
   var prices = [FLAT_MIN_PRICE, HOVEL_MIN_PRICE, PALACE_MIN_PRICE];
   price.min = prices[type];
 });
 
-var roomNumber = document.querySelector('#room_number');
-var capacity = document.querySelector('#capacity');
 capacity.selectedIndex = 1;
 
 roomNumber.addEventListener('click', function () {
@@ -90,25 +115,6 @@ capacity.addEventListener('click', function () {
     roomNumber.selectedIndex = 0;
   }
 });
-
-var hideHandling = function () {
-  hideDialog();
-  setCloseDialogAriaPressed();
-};
-
-closeDialog.addEventListener('keydown', function (event) {
-  if (event.keyCode && event.keyCode === ENTER_KEY_CODE) {
-    hideHandling();
-    document.addEventListener('keydown', function (evt) {
-      debugger;
-      if(evt.keyCode && evt.keyCode === ESCAPE_KEY_CODE) {
-        hideHandling();
-      }
-    })
-  }
-});
-
-var title = document.querySelector('#title');
 
 function setHtmlValues() {
   title.required = 'required';
