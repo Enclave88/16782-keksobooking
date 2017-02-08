@@ -83,7 +83,6 @@ for (var i = 0, pins = pinList.length; i < pins; i++) {
   });
 }
 
-
 for (i = 0, pins = pinList.length; i < pins; i++) {
   pinList[i].addEventListener('click', clickHandler);
 }
