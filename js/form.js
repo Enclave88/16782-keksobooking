@@ -2,8 +2,6 @@
 
 // selectors
 var pinList = document.getElementsByClassName('pin');
-var pin = document.querySelector('.pin');
-var rounded = document.querySelector('.rounded');
 var dialog = document.querySelector('.dialog');
 var map = document.querySelector('.tokyo__pin-map');
 var closeDialog = document.querySelector('.dialog__close');
