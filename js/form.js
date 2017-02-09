@@ -77,6 +77,7 @@ var clickHandler = function (evt) {
 for (var i = 0, pins = pinList.length; i < pins; i++) {
   pinList[i].addEventListener('keydown', function (event) {
     if (event.keyCode && event.keyCode === ENTER_KEY_CODE) {
+      removeActiveClass();
       clickedElement = event.currentTarget;
       visibleAfterAction();
     }
