@@ -2,15 +2,16 @@
 
 // selectors
 var pinList = document.getElementsByClassName('pin');
+var pin = document.querySelector('.pin');
+var rounded = document.querySelector('.rounded');
 var dialog = document.querySelector('.dialog');
+var map = document.querySelector('.tokyo__pin-map');
 var closeDialog = document.querySelector('.dialog__close');
 var livingRoomType = document.querySelector('#type');
 var price = document.querySelector('#price');
 var roomNumber = document.querySelector('#room_number');
 var capacity = document.querySelector('#capacity');
 var title = document.querySelector('#title');
-// booleans
-var clickedElement = null;
 // strings
 var PIN_ACTIVE_CLASS = 'pin--active';
 var VISIBLE_CLASS = 'visible';
@@ -51,42 +52,31 @@ var hideHandling = function () {
   setCloseDialogAriaPressed();
 };
 
-var visibleAfterAction = function () {
-  if (clickedElement) {
-    clickedElement.classList.remove(PIN_ACTIVE_CLASS);
+map.addEventListener('click', function (event) {
+  for (var i = 0, pins = pinList.length; i < pins; i++) {
+    if (event.target === pinList[i]) {
+      visibleAfterAction(event.target);
+    }
+    visibleAfterAction(event.target.parentNode);
   }
-  clickedElement.classList.add(PIN_ACTIVE_CLASS);
+});
 
+map.addEventListener('keydown', function (event) {
+  var key = event.keyCode;
+  if (key && key === ENTER_KEY_CODE) {
+    visibleAfterAction(event.target);
+  }
+  if (key && key === ESCAPE_KEY_CODE) {
+    hideHandling();
+  }
+});
+
+var visibleAfterAction = function (node) {
+  removeActiveClass();
   dialog.classList.remove(INVISIBLE_CLASS);
+  node.classList.add(PIN_ACTIVE_CLASS);
   dialog.classList.add(VISIBLE_CLASS);
 };
-
-var clickHandler = function (evt) {
-  evt.stopPropagation();
-  removeActiveClass();
-  clickedElement = evt.currentTarget;
-  visibleAfterAction();
-
-  document.addEventListener('keydown', function (event) {
-    if (event.keyCode && event.keyCode === ESCAPE_KEY_CODE) {
-      hideHandling();
-    }
-  });
-};
-
-for (var i = 0, pins = pinList.length; i < pins; i++) {
-  pinList[i].addEventListener('keydown', function (event) {
-    if (event.keyCode && event.keyCode === ENTER_KEY_CODE) {
-      removeActiveClass();
-      clickedElement = event.currentTarget;
-      visibleAfterAction();
-    }
-  });
-}
-
-for (i = 0, pins = pinList.length; i < pins; i++) {
-  pinList[i].addEventListener('click', clickHandler);
-}
 
 // прибытие
 arrival.addEventListener('click', function () {
