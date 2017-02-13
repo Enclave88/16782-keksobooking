@@ -8,6 +8,8 @@ var initializePins = function () {
   var PIN_ACTIVE_CLASS = 'pin--active';
   var VISIBLE_CLASS = 'visible';
   var INVISIBLE_CLASS = 'invisible';
+  var ENTER_KEY_CODE = 13;
+  var ESCAPE_KEY_CODE = 27;
 
   // ARIA
   var setCloseDialogAriaPressed = function () {
