@@ -1,20 +1,17 @@
 'use strict';
 
-var synchronizeFields = function (arrival, departure, type, prices) {
+var synchronizeFields = function (arrival, departure, type, prices, stringValue) {
   // selectors
   var livingRoomType = document.querySelector('#type');
   var price = document.querySelector('#price');
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var title = document.querySelector('#title');
-  // numbers
-  var FLAT_MIN_PRICE = 1000;
-  var HOVEL_MIN_PRICE = 0;
-  var PALACE_MIN_PRICE = 10000;
-
-  // синхронизация времени заезда и времени выезда
-  arrival = document.querySelector('#time');
-  departure = document.querySelector('#timeout');
+  var address = document.querySelector('#address');
+  //// numbers
+  //var FLAT_MIN_PRICE = 1000;
+  //var HOVEL_MIN_PRICE = 0;
+  //var PALACE_MIN_PRICE = 10000;
 
   // прибытие
   arrival.addEventListener('click', function () {
@@ -28,8 +25,8 @@ var synchronizeFields = function (arrival, departure, type, prices) {
 
   // минимальная стоимость
   livingRoomType.addEventListener('click', function () {
-    type = livingRoomType.selectedIndex;
-    prices = [FLAT_MIN_PRICE, HOVEL_MIN_PRICE, PALACE_MIN_PRICE];
+    // type = livingRoomType.selectedIndex;
+    // prices = [FLAT_MIN_PRICE, HOVEL_MIN_PRICE, PALACE_MIN_PRICE];
     price.min = prices[type];
   });
 
@@ -60,7 +57,7 @@ var synchronizeFields = function (arrival, departure, type, prices) {
     price.type = 'number';
     price.min = '1000';
     price.max = '1000000';
-    document.querySelector('#address').required = 'required';
+    address.required = 'required';
   }
 
   setHtmlValues();
